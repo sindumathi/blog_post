@@ -1,96 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 90%;
-            margin: 40px auto;
-        }
-
-        .card {
-            border: 1px solid gainsboro;
-            box-shadow: #f5f5f5;
-            border-radius: 5px;
-            padding: 10px;
-            margin:10px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .post {
-            background: white;
-            padding: 20px;
-            margin-bottom: 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .author {
-            font-weight: bold;
-        }
-
-        .date {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .post-title {
-            margin: 0 0 8px;
-            font-size: 20px;
-        }
-
-        .post-content {
-            line-height: 1.5;
-            color: #555;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-        <h1>Posts</h1>
-        {%for post in posts%}
-        <div class="card">
-            <div class="post-header">
-                <span class="author">{{post.author}}</span>
-                <span class="date">{{post.date_posted}}</span>
-            </div>
-            <h2 class="post-title">{{post.title}}</h2>
-
-            <p class="post-content">
-                {{post.content}}
-            </p>
+{%extends "layout.html"%}
+{%block content%}
+<div class="grid grid-cols-1 gap-2">
+    {%for post in posts%}
+    <div class="bg-white rounded-md shadow-md">
+        <div class="flex flex-row">
+            <img src="{{ url_for('static', path='images/user_icon.jpeg') }}" alt="user icon"
+                class="object-cover w-12 h-12 rounded-full mt-3 mx-3 my-3 mb-2" />
+            <div class="text-lg font-bold mt-5 mb-3">{{post.title}}</div>
         </div>
-        {%endfor%}
-        <div id="posts"></div>
+        <p class="flex mx-3 text-gray-600 text-sm" >
+            {{post.content}}
+        </p>
+        <div class="flex flex-row-reverse gap-1 text-sm italic p-2">
+            <span>{{post.author}}</span>
+            <span>{{post.date_posted}}</span>
+        </div>
     </div>
-</body>
-
-</html>
+    {%endfor%}
+    <div id="posts"></div>
+</div>
+{%endblock content%}
